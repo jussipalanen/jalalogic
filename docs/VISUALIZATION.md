@@ -14,27 +14,54 @@ may differ slightly between CODESYS versions.
 3. Check that a **Visualization Manager** exists under `Application`.
    CODESYS normally adds it automatically with the first visualization.
 
-## 2. Suggested layout
+## 2. Layout
+
+The screen is split into one status bar and three panels, so each control
+sits next to the indications it affects. Read it from top to bottom: what
+is the crane doing, how do I move it, how do I recover from a fault.
 
 ```
-+------------------------------------------------------------+
-|  JalaLogic Lite v0.1.0          [ Status text            ] |
-|                                                            |
-|   Boom position        Boom drawing          Indicators    |
-|   +---+                    /                 (o) Ready     |
-|   |###|  57.3 %           /                  (o) Fault     |
-|   |###|                  /                   (o) Upper lim |
-|   |###|              ___/                    (o) Lower lim |
-|   +---+             |___|                    (o) Grapple   |
-|                                                  open      |
-|   [ BOOM UP ]  [ BOOM DOWN ]                               |
-|   [ GRAPPLE OPEN ]  [ GRAPPLE CLOSE ]                      |
-|                                                            |
-|   [ E-STOP ]   [ SIMULATE FAULT ]   [ RESET ]              |
-|                                                            |
-|  Simulation only - not a certified safety function         |
-+------------------------------------------------------------+
++--------------------------------------------------------------------+
+| JalaLogic Lite v0.1.0   (o) Ready  [ Status text                 ] |
++----------------------+-------------------+-------------------------+
+| BOOM                 | GRAPPLE           | SAFETY AND FAULTS       |
+|                      |                   |                         |
+| (o) Upper limit      | [ OPEN  ]         |  +-------------------+  |
+| +---+                | [ CLOSE ]         |  |      E-STOP       |  |
+| |   |  57.3 %        |                   |  +-------------------+  |
+| |###|                | (o) Grapple open  |                         |
+| |###|  [ BOOM UP   ] |                   |  [ SIMULATE FAULT ]     |
+| |###|  (o) Moving up |                   |  (o) Fault              |
+| |###|                |                   |                         |
+| |###|  [ BOOM DOWN ] |                   |  [ RESET ]              |
+| |###|  (o) Moving dn |                   |                         |
+| +---+                |                   |                         |
+| (o) Lower limit      |                   |                         |
++----------------------+-------------------+-------------------------+
+| Hold BOOM UP / DOWN to move. After a fault: clear the cause,       |
+| release all controls, then press RESET.                            |
+| Simulation only - not a certified safety function.                 |
++--------------------------------------------------------------------+
 ```
+
+| Area              | Elements                                                    | Notes |
+|-------------------|-------------------------------------------------------------|-------|
+| Status bar        | Title text, Ready lamp, status text field (section 6b)      | Make the status field wide; it is the main message to the operator. Optional: **Color variables > Toggle color** = `PLC_PRG.xHmiFault` with a red **Alarm color**, so the bar turns red on a fault. |
+| Panel BOOM        | Bar display, position text, BOOM UP / BOOM DOWN, Moving up / Moving down lamps, Upper / Lower limit lamps | Put Upper limit above the bar and Lower limit below it, and BOOM UP above BOOM DOWN, so their positions match the direction. |
+| Panel GRAPPLE     | OPEN / CLOSE buttons, Grapple open lamp                     | |
+| Panel SAFETY AND FAULTS | E-STOP, SIMULATE FAULT, Fault lamp, RESET             | Make E-STOP the largest button, red, and clearly apart from the movement buttons. |
+| Help footer       | Two text lines                                              | Plain **Text field** elements, static text. |
+
+Draw each panel as a **Rectangle** (Basic) with a light fill and a
+**Text field** heading. Draw the panels first, then the elements on top,
+so the panels stay in the background.
+
+Use the same size for all movement buttons (for example 160 x 50) and
+leave a gap of at least 10 pixels between buttons, so a mis-click does not
+press a neighbouring button.
+
+The optional boom drawing (section 7) fits between the BOOM and GRAPPLE
+panels if you make the screen wider.
 
 ## 3. Command buttons
 
@@ -58,6 +85,10 @@ under **Texts > Text** and the behaviour under **Input configuration**.
 - Make the E-STOP button red. If your CODESYS version offers
   **Color variables > Toggle color**, bind it to `PLC_PRG.xHmiEmergencyStop`
   and set an **Alarm color** so the button shows when E-stop is latched.
+- Do the same for SIMULATE FAULT with `PLC_PRG.xHmiSimulateFault` (for
+  example orange). A toggle button looks the same pressed and released
+  unless it has a toggle color, and the operator then cannot see that the
+  cause must be cleared before RESET works.
 
 ## 4. Boom position
 
