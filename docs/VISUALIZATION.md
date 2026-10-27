@@ -281,8 +281,13 @@ the sign of `c_rBoomMaxAngleDeg` in `PLC_PRG`.
 > Visualization status: `VIS_Main` has been built in
 > `codesys/JalaLogicLite.project` (command buttons, position bar, lamps,
 > status text). The full test run in [TESTING.md](TESTING.md) is pending.
-> The panel layout (section 2a), the optional boom drawing (section 7) and
-> WebVisu (section 9) have not been built yet.
+> The panel layout (section 2a) was applied by editing the exported
+> `VIS_Main` XML and importing it back: positions, a vertical position bar,
+> all lamps and labels, on a 1024 x 600 screen in the existing dark theme.
+> The background rectangles, the E-STOP color and the toggle colors are not
+> built yet, and the layout has not been checked visually. A `WebVisu`
+> object already exists; section 9 has not been tested. The optional boom
+> drawing (section 7) has not been built.
 
 ## 9. WebVisu (browser)
 
