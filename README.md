@@ -1,4 +1,4 @@
-# JalaCrane Lite
+# JalaLogic
 
 A small educational forestry crane control simulator written in
 IEC 61131-3 Structured Text for CODESYS V3. Built as a PLC programming

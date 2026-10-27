@@ -1,4 +1,4 @@
-// JalaCrane Lite - FB_CraneControl
+// JalaLogic - FB_CraneControl
 // Simulation-only educational project. Not a certified safety function.
 //
 // CODESYS: Add Object > POU > name "FB_CraneControl", type "Function Block",

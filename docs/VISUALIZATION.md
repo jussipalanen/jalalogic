@@ -1,6 +1,6 @@
 # CODESYS Visualization guide
 
-This guide describes how to build the operator screen for JalaCrane Lite.
+This guide describes how to build the operator screen for JalaLogic.
 The visualization only reads and writes the `PLC_PRG.xHmi*`, `rHmi*` and
 `sHmi*` variables. No control logic is placed in the visualization.
 
@@ -18,7 +18,7 @@ may differ slightly between CODESYS versions.
 
 ```
 +------------------------------------------------------------+
-|  JalaCrane Lite v0.1.0          [ Status text            ] |
+|  JalaLogic v0.1.0               [ Status text            ] |
 |                                                            |
 |   Boom position        Boom drawing          Indicators    |
 |   +---+                    /                 (o) Ready     |

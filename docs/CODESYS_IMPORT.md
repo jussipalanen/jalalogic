@@ -16,7 +16,7 @@ CODESYS object type.
 
 1. Start CODESYS V3.5.
 2. **File > New Project > Projects > Standard project**.
-3. Name the project, for example `JalaCraneLite`.
+3. Name the project, for example `JalaLogic`.
 4. In the dialog, choose:
    - **Device:** `CODESYS Control Win V3` (or `CODESYS Control Win V3 x64`)
    - **PLC_PRG in:** `Structured Text (ST)`
@@ -86,6 +86,6 @@ limits and fault handling still work.
 ## 8. Keep Git in sync
 
 - Save the CODESYS project in the repository folder (for example
-  `codesys/JalaCraneLite.project`) if you want it under version control.
+  `codesys/JalaLogic.project`) if you want it under version control.
 - After editing code in CODESYS, copy the declaration and implementation
   back into the `.st` files before committing.

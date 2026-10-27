@@ -1,4 +1,4 @@
-// JalaCrane Lite - E_CraneFault
+// JalaLogic - E_CraneFault
 // Simulation-only educational project. Not a certified safety function.
 //
 // CODESYS: Add Object > DUT > name "E_CraneFault", type "Enumeration".
