@@ -28,5 +28,7 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
 - Native CODESYS project `codesys/JalaLogicLite.project` with the
   `VIS_Main` operator screen and `TL_Status` text list.
 - Project logo in `assets/logo.png`.
+- README instructions for the optional community CODESYS MCP server
+  (`@codesys/mcp-toolkit`) for AI-assisted development.
 - Documentation: README, CODESYS import guide, visualization guide and
   manual test instructions.

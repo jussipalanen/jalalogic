@@ -129,6 +129,79 @@ compilation and simulation results are recorded only after they have
 actually been run in CODESYS (see the status table above and
 [docs/TESTING.md](docs/TESTING.md)).
 
+## AI assistant with CODESYS MCP (optional)
+
+An AI assistant that supports the Model Context Protocol (MCP), such as
+Claude Code, can work with the CODESYS project directly through the
+community MCP server
+[`@codesys/mcp-toolkit`](https://github.com/johannesPettersson80/codesys-mcp-toolkit).
+It is not needed to build or run the simulator.
+
+> **Status: not yet verified with this project.** The toolkit is a
+> third-party project, not affiliated with CODESYS, and its author reports
+> testing with CODESYS V3.5 SP21.
+
+### What it can and cannot do
+
+| Can                                                      | Cannot                                      |
+|----------------------------------------------------------|---------------------------------------------|
+| Open, create and save projects                           | Create or edit visualizations (`VIS_Main`)  |
+| Create programs, function blocks, functions              | Create DUTs (enumerations such as `E_HmiStatus`) |
+| Read and write POU code, methods and properties          | Run the simulation or the manual tests      |
+| Compile the project and report errors                    |                                             |
+
+### Requirements
+
+- CODESYS V3.5 with the **Scripting Engine** component installed
+- Node.js 18 or later
+- An MCP client, for example Claude Code
+
+### Setup
+
+1. Install the toolkit:
+
+   ```
+   npm install -g @codesys/mcp-toolkit
+   ```
+
+2. Find the two values for your installation:
+   - **CODESYS path:** `<install folder>/CODESYS/Common/CODESYS.exe`
+   - **Profile name:** the file name in `<install folder>/CODESYS/Profiles/`
+     without `.profile.xml`, for example `CODESYS V3.5 SP22 Patch 3`
+
+3. Register the server in Claude Code from the repository folder. The
+   default local scope keeps your machine-specific paths out of Git.
+
+   ```
+   claude mcp add codesys -- codesys-mcp-tool --codesys-path "C:/Path/To/CODESYS/Common/CODESYS.exe" --codesys-profile "CODESYS V3.5 SP22 Patch 3" --workspace "C:/Path/To/jalalogic"
+   ```
+
+4. Restart Claude Code and check the connection with `claude mcp list`.
+
+For other MCP clients, use the same command and arguments in the client's
+MCP configuration. See the toolkit README for details.
+
+### Usage
+
+1. Commit or stash your changes first, so every change made through MCP
+   can be reviewed and reverted with Git.
+2. **Close the CODESYS window.** The toolkit starts its own CODESYS
+   instance; a second instance using the same profile can cause conflicts.
+3. Ask the assistant, for example:
+   - "Open `codesys/JalaLogicLite.project` and list its objects."
+   - "Compile the project and show the errors."
+   - "Update `FB_CraneControl` from `src/POUs/FB_CraneControl.st` and compile."
+4. Keep the `.st` files in `src/` in sync with the project. Code changed
+   through MCP must also be copied into the matching `.st` file.
+5. Open the project in CODESYS and run the manual tests in
+   [docs/TESTING.md](docs/TESTING.md). A successful compile does not mean
+   the logic is correct.
+
+The official
+[CODESYS Development System MCP Server](https://content.helpme-codesys.com/en/CODESYS%20Development%20System%20MCP%20Server/_idemcp_start_page.html)
+is an alternative. It requires a CODESYS Professional Developer Edition
+license and has not been tried with this project.
+
 ## License
 
 No license has been chosen yet.
