@@ -78,6 +78,10 @@ project and builds it headless with `./dev sync`. See
    `PLC_PRG` online view.
 4. Run the test cases in [docs/TESTING.md](docs/TESTING.md).
 
+To use the operator screen in a web browser (WebVisu), see section 9 of
+[docs/VISUALIZATION.md](docs/VISUALIZATION.md). WebVisu needs the
+CODESYS Control Win V3 soft PLC instead of the IDE simulator.
+
 ## Project structure and design
 
 <details>

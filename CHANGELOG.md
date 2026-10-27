@@ -42,3 +42,7 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
   open in the IDE. Build and sync against the project are not tested yet.
 - `docs/DEV_WORKFLOW.md`: everyday workflow for changes with Claude Code
   and `./dev`.
+- Visualization guide: build sheet with exact positions, sizes and colors
+  for the operator screen layout (1024 x 600), and WebVisu setup for
+  viewing `VIS_Main` in a browser via CODESYS Control Win V3. Not yet
+  built in the project.
