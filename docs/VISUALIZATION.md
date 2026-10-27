@@ -119,11 +119,17 @@ ID shows an empty or default text on the HMI.
 
 **Text field** (Basic > Text field) across the top of the screen:
 
-- **Dynamic texts > Text list:** select `TL_Status`
-- **Dynamic texts > Text index:** `PLC_PRG.sHmiStatusId`
+- **Dynamic texts > Text list:** `'TL_Status'` (with single straight
+  quotes - the property expects a string literal)
+- **Dynamic texts > Text index:** `PLC_PRG.sHmiStatusId` (no quotes -
+  this is a variable)
+- **Texts > Text:** leave empty
 
-Property names are from the CODESYS V3.5 property editor and have not yet
-been verified against the installed version.
+**Dynamic texts** is hidden by default. Enable **Advanced** in the
+toolbar of the **Properties** view to show it.
+
+Verified manually: the status field shows the `TL_Status` texts in
+CODESYS simulation.
 
 When debugging without the visualization, read `PLC_PRG.eHmiStatus` in
 the online view; it shows the status name.
