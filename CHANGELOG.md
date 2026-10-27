@@ -20,6 +20,10 @@ Planned as **0.1.0**. Not yet compiled or tested in CODESYS.
 - Rising-edge fault reset that requires all commands to be released
   before movement resumes.
 - `E_CraneFault` enumeration for fault codes.
-- `PLC_PRG` main program with HMI variable mapping and status text.
+- `PLC_PRG` main program with HMI variable mapping and operator status.
+- `E_HmiStatus` enumeration and text list `TL_Status` for the operator
+  status. `PLC_PRG` outputs a status code (`eHmiStatus`, `sHmiStatusId`)
+  instead of a text string, so HMI texts can be translated without code
+  changes.
 - Documentation: README, CODESYS import guide, visualization guide and
   manual test instructions.

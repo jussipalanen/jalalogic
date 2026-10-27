@@ -40,7 +40,7 @@ MainTask interval.
 ## Test cases
 
 Start every test from this state unless stated otherwise:
-no fault, all commands FALSE, status text `Ready`.
+no fault, all commands FALSE, `eHmiStatus` = `READY`.
 
 ### T1 - Boom moves up
 
@@ -72,8 +72,8 @@ stops the boom.
 1. Set boom to around 50 %. Set `xHmiBoomUp` and `xHmiBoomDown` both TRUE
    in the same write.
 2. Expected: position does not change, both moving flags FALSE,
-   `fbCrane.xBoomCommandConflict` TRUE, status text
-   `Conflicting commands - no movement`.
+   `fbCrane.xBoomCommandConflict` TRUE, `eHmiStatus` =
+   `CONFLICTING_COMMANDS`.
 3. Set `xHmiGrappleOpen` and `xHmiGrappleClose` both TRUE.
 4. Expected: `xHmiGrappleIsOpen` keeps its previous value,
    `fbCrane.xGrappleCommandConflict` TRUE.
@@ -89,7 +89,7 @@ stops the boom.
 
 1. Set `xHmiEmergencyStop` TRUE.
 2. Expected: `xHmiFault` TRUE, `xHmiReady` FALSE, `fbCrane.eFaultCode` =
-   `EMERGENCY_STOP`, status text shows the emergency stop.
+   `EMERGENCY_STOP`, `eHmiStatus` = `FAULT_EMERGENCY_STOP`.
 3. Try `xHmiBoomUp`, `xHmiBoomDown`, `xHmiGrappleOpen`, `xHmiGrappleClose`.
 4. Expected: no boom movement, grapple state unchanged.
 5. Repeat with `xHmiSimulateFault` TRUE (E-stop FALSE).
@@ -105,8 +105,8 @@ stops the boom.
 4. Expected: fault is still latched (`xHmiFault` TRUE). Boom does not move.
 5. Pulse `xHmiReset`.
 6. Expected: `xHmiFault` FALSE, but boom **does not move** because
-   `xHmiBoomUp` is still held. `fbCrane.xWaitingForRelease` TRUE, status
-   text `Release all controls`.
+   `xHmiBoomUp` is still held. `fbCrane.xWaitingForRelease` TRUE,
+   `eHmiStatus` = `RELEASE_ALL_CONTROLS`.
 7. Release `xHmiBoomUp`, then press it again.
 8. Expected: boom moves up again.
 
@@ -116,7 +116,7 @@ stops the boom.
 2. Pulse `xHmiReset`.
 3. Expected: fault remains latched.
 4. Set `xHmiSimulateFault` FALSE, pulse `xHmiReset`.
-5. Expected: fault clears, status `Ready`.
+5. Expected: fault clears, `eHmiStatus` = `READY`.
 
 ### T9 - Held command at start-up causes no movement
 

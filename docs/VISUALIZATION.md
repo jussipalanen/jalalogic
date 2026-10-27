@@ -2,7 +2,7 @@
 
 This guide describes how to build the operator screen for JalaLogic Lite.
 The visualization only reads and writes the `PLC_PRG.xHmi*`, `rHmi*` and
-`sHmi*` variables. No control logic is placed in the visualization.
+`sHmi*` variables and the text list `TL_Status`. No control logic is placed in the visualization.
 
 Element names refer to the CODESYS V3.5 **ToolBox**. Names and categories
 may differ slightly between CODESYS versions.
@@ -89,13 +89,44 @@ next to it.
 
 ## 6. Status text
 
+`PLC_PRG` does not generate the status text. It selects a status
+(`eHmiStatus`, type `E_HmiStatus`) and converts its numeric value to the
+text list ID `sHmiStatusId`. The visualization looks up the text in a
+text list. This keeps operator language out of the PLC logic and allows
+translations (for example Finnish) to be added later without changing code.
+
+### 6a. Create the text list TL_Status
+
+1. Right-click **Application > Add Object > Text List...**
+2. Name: `TL_Status`, click **Add**.
+3. Enter one row per status. The **ID** must equal the numeric value in
+   `E_HmiStatus`; the text goes in the **Default** column.
+
+| ID | Default                                     | E_HmiStatus                   |
+|----|---------------------------------------------|-------------------------------|
+| 0  | Ready                                       | `READY`                       |
+| 1  | Conflicting commands - no movement          | `CONFLICTING_COMMANDS`        |
+| 2  | Release all controls                        | `RELEASE_ALL_CONTROLS`        |
+| 10 | FAULT: Emergency stop - release, then Reset | `FAULT_EMERGENCY_STOP`        |
+| 11 | FAULT: Simulated fault - clear, then Reset  | `FAULT_SIMULATED`             |
+| 12 | FAULT: Invalid configuration                | `FAULT_INVALID_CONFIGURATION` |
+| 19 | FAULT: Unknown                              | `FAULT_UNKNOWN`               |
+
+If you add a value to `E_HmiStatus`, add the matching row here. A missing
+ID shows an empty or default text on the HMI.
+
+### 6b. Status text field
+
 **Text field** (Basic > Text field) across the top of the screen:
 
-- **Texts > Text:** `%s`
-- **Text variables > Text variable:** `PLC_PRG.sHmiStatusText`
+- **Dynamic texts > Text list:** select `TL_Status`
+- **Dynamic texts > Text index:** `PLC_PRG.sHmiStatusId`
 
-The text is generated in `PLC_PRG` and shows fault, release request,
-command conflict or `Ready`.
+Property names are from the CODESYS V3.5 property editor and have not yet
+been verified against the installed version.
+
+When debugging without the visualization, read `PLC_PRG.eHmiStatus` in
+the online view; it shows the status name.
 
 ## 7. Optional boom drawing
 

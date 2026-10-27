@@ -2,8 +2,10 @@
 // Simulation-only educational project. Not a certified safety function.
 //
 // Main program. Connects the HMI variables to FB_CraneControl.
-// Visualization elements bind only to the xHmi*/rHmi*/sHmi* variables below;
-// all control logic stays inside FB_CraneControl.
+// Visualization elements bind only to the xHmi*/rHmi*/eHmi*/sHmi* variables
+// below; all control logic stays inside FB_CraneControl.
+// Operator texts are not generated here: the HMI shows the text list entry
+// TL_Status selected by sHmiStatusId (see docs/VISUALIZATION.md).
 //
 // ============================================================================
 // DECLARATION PART
@@ -32,7 +34,8 @@ VAR
     xHmiGrappleIsOpen     : BOOL := FALSE;
     xHmiReady             : BOOL := FALSE;
     xHmiFault             : BOOL := FALSE;
-    sHmiStatusText        : STRING(60) := '';
+    eHmiStatus            : E_HmiStatus := E_HmiStatus.READY;
+    sHmiStatusId          : STRING(10) := '0'; // Text list ID for TL_Status
 
     fbCrane               : FB_CraneControl;
 END_VAR
@@ -70,22 +73,25 @@ xHmiGrappleIsOpen    := fbCrane.xGrappleIsOpen;
 xHmiReady            := fbCrane.xReady;
 xHmiFault            := fbCrane.xFault;
 
-// Operator status text, most important condition first.
+// Operator status, most important condition first.
 IF fbCrane.xFault THEN
     CASE fbCrane.eFaultCode OF
         E_CraneFault.EMERGENCY_STOP:
-            sHmiStatusText := 'FAULT: Emergency stop - release, then Reset';
+            eHmiStatus := E_HmiStatus.FAULT_EMERGENCY_STOP;
         E_CraneFault.SIMULATED_FAULT:
-            sHmiStatusText := 'FAULT: Simulated fault - clear, then Reset';
+            eHmiStatus := E_HmiStatus.FAULT_SIMULATED;
         E_CraneFault.INVALID_CONFIGURATION:
-            sHmiStatusText := 'FAULT: Invalid configuration';
+            eHmiStatus := E_HmiStatus.FAULT_INVALID_CONFIGURATION;
     ELSE
-        sHmiStatusText := 'FAULT: Unknown';
+        eHmiStatus := E_HmiStatus.FAULT_UNKNOWN;
     END_CASE
 ELSIF fbCrane.xWaitingForRelease THEN
-    sHmiStatusText := 'Release all controls';
+    eHmiStatus := E_HmiStatus.RELEASE_ALL_CONTROLS;
 ELSIF fbCrane.xBoomCommandConflict OR fbCrane.xGrappleCommandConflict THEN
-    sHmiStatusText := 'Conflicting commands - no movement';
+    eHmiStatus := E_HmiStatus.CONFLICTING_COMMANDS;
 ELSE
-    sHmiStatusText := 'Ready';
+    eHmiStatus := E_HmiStatus.READY;
 END_IF
+
+// Text list IDs are strings; the enum value is used as the ID.
+sHmiStatusId := INT_TO_STRING(TO_INT(eHmiStatus));
