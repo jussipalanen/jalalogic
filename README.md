@@ -137,18 +137,27 @@ community MCP server
 [`@codesys/mcp-toolkit`](https://github.com/johannesPettersson80/codesys-mcp-toolkit).
 It is not needed to build or run the simulator.
 
-> **Status: not yet verified with this project.** The toolkit is a
-> third-party project, not affiliated with CODESYS, and its author reports
-> testing with CODESYS V3.5 SP21.
+> **Status: partly verified with this project.** Connecting, opening
+> `codesys/JalaLogicLite.project`, listing its objects and reading POU code
+> have been tried and work. Editing code through MCP has not been tried.
+> The toolkit is a third-party project, not affiliated with CODESYS.
 
 ### What it can and cannot do
 
 | Can                                                      | Cannot                                      |
 |----------------------------------------------------------|---------------------------------------------|
 | Open, create and save projects                           | Create or edit visualizations (`VIS_Main`)  |
-| Create programs, function blocks, functions              | Create DUTs (enumerations such as `E_HmiStatus`) |
-| Read and write POU code, methods and properties          | Run the simulation or the manual tests      |
-| Compile the project and report errors                    |                                             |
+| List the project objects and read POU code               | Create DUTs (enumerations such as `E_HmiStatus`) |
+| Create programs, function blocks, functions, methods and properties | Run the simulation or the manual tests |
+| Write POU code                                           | Return build errors (see below)             |
+| Start a build                                            |                                             |
+
+The build tool only starts the build. Errors and warnings appear in the
+**Messages** window of CODESYS, not in the assistant's answer, so check
+them there (**Build > Build**, `F11`).
+
+Code read through MCP comes back without indentation. Use the `.st` files
+in `src/` or the project in CODESYS as the reference, not the MCP output.
 
 ### Requirements
 
@@ -188,25 +197,41 @@ It is not needed to build or run the simulator.
    quoted `'--'` as shown.
 
 4. Restart Claude Code and check the connection with `claude mcp list`.
+   The `codesys` server should show as connected.
 
 For other MCP clients, use the same command and arguments in the client's
 MCP configuration. See the toolkit README for details.
 
-### Usage
+### Try the project with the assistant
 
-1. Commit or stash your changes first, so every change made through MCP
-   can be reviewed and reverted with Git.
-2. **Close the CODESYS window.** The toolkit starts its own CODESYS
-   instance; a second instance using the same profile can cause conflicts.
+1. **Close the project in CODESYS** (**File > Close Project**) or close
+   CODESYS. The toolkit starts its own CODESYS instance in the background,
+   and only one instance can have the project open at a time.
+2. Start Claude Code in the repository folder.
 3. Ask the assistant, for example:
+   - "Check that you can connect to CODESYS."
    - "Open `codesys/JalaLogicLite.project` and list its objects."
-   - "Compile the project and show the errors."
-   - "Update `FB_CraneControl` from `src/POUs/FB_CraneControl.st` and compile."
-4. Keep the `.st` files in `src/` in sync with the project. Code changed
-   through MCP must also be copied into the matching `.st` file.
-5. Open the project in CODESYS and run the manual tests in
-   [docs/TESTING.md](docs/TESTING.md). A successful compile does not mean
-   the logic is correct.
+   - "Show the code of `FB_CraneControl` and explain how the fault reset
+     works."
+   - "Which test cases in `docs/TESTING.md` cover the emergency stop?"
+4. To run the simulator, close Claude Code, open the project in CODESYS
+   and follow [Simulation](#simulation) and
+   [docs/TESTING.md](docs/TESTING.md). The assistant cannot run the
+   simulation or the manual tests for you.
+
+These requests only read the project. If you let the assistant change
+code, commit or stash your own changes first so every change can be
+reviewed and reverted with Git. Copy changed code into the matching `.st`
+file in `src/`, build in CODESYS and run the manual tests. A successful
+build does not mean the logic is correct.
+
+### Troubleshooting
+
+| Problem | Solution |
+|---------|----------|
+| `The selected project is currently in use by '<user>' on '<computer>'` | The project is open in CODESYS. Close it there and ask again. |
+| `error: unknown option '--codesys-path'` when registering | See step 3 of [Setup](#setup): use `claude.cmd` and `'--'` in PowerShell. |
+| `codesys` is not listed or fails in `claude mcp list` | Check the CODESYS path and profile name from step 2 of [Setup](#setup). The **Scripting Engine** component must be installed. |
 
 The official
 [CODESYS Development System MCP Server](https://content.helpme-codesys.com/en/CODESYS%20Development%20System%20MCP%20Server/_idemcp_start_page.html)
