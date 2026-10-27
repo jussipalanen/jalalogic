@@ -3,9 +3,13 @@
 This guide shows the everyday loop: ask Claude Code for a change, let it
 update the code and the CODESYS project, then try the result in simulation.
 
-> Status: `./dev help` and the "project is open in the IDE" check are
-> tested. `./dev build` and `./dev sync` against the real project are not
-> tested yet. Update this note after the first successful run.
+> Status: tested with CODESYS V3.5 SP22 Patch 3 (2026-10-28): `./dev build`,
+> `./dev sync` with and without changes in `src/`, a sync that saves, and
+> the "project is open in the IDE" check.
+
+Never copy `codesys/JalaLogicLite.project` through a text editor or the
+clipboard: it is a binary file and gets corrupted. Let `./dev` write it,
+or copy the file itself in Explorer.
 
 ## How it fits together
 

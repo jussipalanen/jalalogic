@@ -66,8 +66,8 @@ committing.
 
 Optional: the `./dev` script (Git Bash) copies `src/*.st` into the
 project and builds it headless with `./dev sync`. See
-[docs/DEV_WORKFLOW.md](docs/DEV_WORKFLOW.md). `./dev build` and
-`./dev sync` have not been tested against the project yet.
+[docs/DEV_WORKFLOW.md](docs/DEV_WORKFLOW.md). Tested with CODESYS V3.5
+SP22 Patch 3 (2026-10-28).
 
 ## Simulation
 

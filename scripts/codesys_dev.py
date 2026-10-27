@@ -31,21 +31,13 @@ def read_lines(path):
         return source.read().replace("\r\n", "\n").split("\n")
 
 
-def is_comment_or_blank(line):
-    text = line.strip()
-    return text == "" or text.startswith("//")
-
-
-def is_banner(line):
-    return line.strip().startswith("// ====")
-
-
 def split_source(lines):
     """Return (declaration, implementation) of a src/*.st file.
 
-    Declaration: from the first code line to the banner before
-    "// IMPLEMENTATION PART" (or to the end of a DUT file).
-    Implementation: everything after that banner block, None for DUTs.
+    The whole file is kept, comments included, so the project and src/
+    stay identical. The implementation starts at the banner line above
+    "// IMPLEMENTATION PART"; everything before it is the declaration.
+    DUT files have no implementation (None).
     """
     marker = None
     for index, line in enumerate(lines):
@@ -53,19 +45,11 @@ def split_source(lines):
             marker = index
             break
 
-    end = len(lines) if marker is None else marker - 1
-    start = 0
-    while start < end and is_comment_or_blank(lines[start]):
-        start += 1
-    declaration = "\r\n".join(lines[start:end]).strip()
-
-    implementation = None
-    if marker is not None:
-        body = marker + 1
-        while body < len(lines) and not is_banner(lines[body]):
-            body += 1
-        implementation = "\r\n".join(lines[body + 1:]).strip()
-
+    if marker is None:
+        return "\r\n".join(lines).strip(), None
+    split = marker - 1
+    declaration = "\r\n".join(lines[:split]).strip()
+    implementation = "\r\n".join(lines[split:]).strip()
     return declaration, implementation
 
 
@@ -75,7 +59,8 @@ def normalize(text):
 
 
 def find_object(project, name):
-    found = project.find(name, True)
+    # Task calls share the POU name (MainTask > PLC_PRG) but hold no code.
+    found = [obj for obj in project.find(name, True) if obj.has_textual_declaration]
     if not found:
         raise RuntimeError("Object '%s' not found in the project" % name)
     if len(found) > 1:
