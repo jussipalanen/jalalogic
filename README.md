@@ -13,19 +13,20 @@ portfolio project.
 
 ## Status
 
-Version **0.1.0 (in development)**.
+Version **0.1.0** (pre-release, 2026-10-28).
 
 | Item                        | Status                                  |
 |-----------------------------|-----------------------------------------|
-| Structured Text code        | Builds in CODESYS (manual build)        |
-| CODESYS simulation tests    | T1 passed manually; T2–T10 **not yet executed** (see [docs/TESTING.md](docs/TESTING.md)) |
-| Visualization               | `VIS_Main` built (buttons, position bar, lamps, status text); **full test run pending** |
+| Structured Text code        | Builds in CODESYS, 0 errors / 0 warnings (IDE and `./dev build`) |
+| CODESYS simulation tests    | T1 and T11 passed manually; T2–T10 **not yet executed** (see [docs/TESTING.md](docs/TESTING.md)) |
+| Visualization               | `VIS_Main` panel layout, checked in the IDE and in WebVisu (Chrome) |
 
 ## Features (v0.1.0)
 
 - Boom up/down with hold-to-run manual controls
 - Simulated boom position 0–100 %, integrated from the PLC cycle time
 - Upper and lower boom limits (position clamped, movement stops at limit)
+- Slow-down to 30 % speed in the last 10 % before a limit
 - Grapple open/close; the grapple keeps its state during faults
 - Conflicting commands (up + down, open + close) cause no movement
 - Simulated emergency stop and simulated hydraulic fault
@@ -35,6 +36,8 @@ Version **0.1.0 (in development)**.
 - Configuration validation (cycle time, boom speed); invalid values fault
 - Operator status for the HMI, with texts in a CODESYS text list
   (no language-specific text in the PLC code)
+- Operator screen with BOOM, GRAPPLE and SAFETY AND FAULTS panels,
+  also usable in a browser via WebVisu
 
 Out of scope for v0.1.0: CAN bus, real hydraulic control, 3D graphics,
 databases and external APIs.
