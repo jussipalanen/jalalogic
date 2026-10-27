@@ -1,5 +1,7 @@
 # JalaLogic Lite
 
+![JalaLogic](assets/logo.png)
+
 A small educational forestry crane control simulator written in
 IEC 61131-3 Structured Text for CODESYS V3. Built as a PLC programming
 portfolio project.
@@ -15,9 +17,9 @@ Version **0.1.0 (in development)**.
 
 | Item                        | Status                                  |
 |-----------------------------|-----------------------------------------|
-| Structured Text code        | Written, **not yet compiled**           |
-| CODESYS simulation tests    | **Not executed** (see [docs/TESTING.md](docs/TESTING.md)) |
-| Visualization               | Guide written, **not yet built**        |
+| Structured Text code        | Builds in CODESYS (manual build)        |
+| CODESYS simulation tests    | T1 passed manually; T2–T10 **not yet executed** (see [docs/TESTING.md](docs/TESTING.md)) |
+| Visualization               | `VIS_Main` built (buttons, position bar, lamps, status text); **full test run pending** |
 
 ## Features (v0.1.0)
 
@@ -50,6 +52,10 @@ Only the CODESYS `Standard` library is used (`R_TRIG`).
 ## Project structure
 
 ```
+assets/
+  logo.png                   Project logo
+codesys/
+  JalaLogicLite.project      Native CODESYS project (code and visualization)
 src/
   DUTs/E_CraneFault.st       Fault code enumeration
   DUTs/E_HmiStatus.st        Operator status enumeration (text list IDs)
@@ -90,11 +96,15 @@ docs/
 1. Install CODESYS V3.5 (the free Development System includes
    CODESYS Control Win V3 simulation).
 2. Clone this repository.
-3. Create a CODESYS project and copy the code in, following
-   [docs/CODESYS_IMPORT.md](docs/CODESYS_IMPORT.md).
+3. Open `codesys/JalaLogicLite.project` in CODESYS.
 
-The `.st` files are plain-text copies. CODESYS does not synchronize them
-automatically; the native CODESYS project is the authoritative source.
+To build the project from scratch instead, follow
+[docs/CODESYS_IMPORT.md](docs/CODESYS_IMPORT.md).
+
+The `.st` files are plain-text copies for review on GitHub. CODESYS does
+not synchronize them automatically; `codesys/JalaLogicLite.project` is the
+authoritative source. Copy code changes back into the `.st` files before
+committing.
 
 ## Simulation
 

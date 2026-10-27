@@ -119,11 +119,17 @@ ID shows an empty or default text on the HMI.
 
 **Text field** (Basic > Text field) across the top of the screen:
 
-- **Dynamic texts > Text list:** select `TL_Status`
-- **Dynamic texts > Text index:** `PLC_PRG.sHmiStatusId`
+- **Dynamic texts > Text list:** `'TL_Status'` (with single straight
+  quotes - the property expects a string literal)
+- **Dynamic texts > Text index:** `PLC_PRG.sHmiStatusId` (no quotes -
+  this is a variable)
+- **Texts > Text:** leave empty
 
-Property names are from the CODESYS V3.5 property editor and have not yet
-been verified against the installed version.
+**Dynamic texts** is hidden by default. Enable **Advanced** in the
+toolbar of the **Properties** view to show it.
+
+Verified manually: the status field shows the `TL_Status` texts in
+CODESYS simulation.
 
 When debugging without the visualization, read `PLC_PRG.eHmiStatus` in
 the online view; it shows the status name.
@@ -151,5 +157,7 @@ the sign of `c_rBoomMaxAngleDeg` in `PLC_PRG`.
 3. Run the manual test cases in [TESTING.md](TESTING.md).
 4. Take screenshots for the README (for example into `docs/images/`).
 
-> Visualization status: **not yet built or verified** in CODESYS. This guide
-> describes the intended setup.
+> Visualization status: `VIS_Main` has been built in
+> `codesys/JalaLogicLite.project` (command buttons, position bar, lamps,
+> status text). The full test run in [TESTING.md](TESTING.md) is pending.
+> The optional boom drawing (section 7) has not been built.

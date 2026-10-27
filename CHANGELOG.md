@@ -7,7 +7,7 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-Planned as **0.1.0**. Not yet compiled or tested in CODESYS.
+Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
 
 ### Added
 
@@ -25,5 +25,8 @@ Planned as **0.1.0**. Not yet compiled or tested in CODESYS.
   status. `PLC_PRG` outputs a status code (`eHmiStatus`, `sHmiStatusId`)
   instead of a text string, so HMI texts can be translated without code
   changes.
+- Native CODESYS project `codesys/JalaLogicLite.project` with the
+  `VIS_Main` operator screen and `TL_Status` text list.
+- Project logo in `assets/logo.png`.
 - Documentation: README, CODESYS import guide, visualization guide and
   manual test instructions.
