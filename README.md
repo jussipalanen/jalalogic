@@ -49,48 +49,6 @@ databases and external APIs.
 
 Only the CODESYS `Standard` library is used (`R_TRIG`).
 
-## Project structure
-
-```
-assets/
-  logo.png                   Project logo
-codesys/
-  JalaLogicLite.project      Native CODESYS project (code and visualization)
-src/
-  DUTs/E_CraneFault.st       Fault code enumeration
-  DUTs/E_HmiStatus.st        Operator status enumeration (text list IDs)
-  POUs/FB_CraneControl.st    Crane control logic
-  POUs/PLC_PRG.st            Main program, HMI variable mapping
-docs/
-  CODESYS_IMPORT.md          How to create the CODESYS project
-  VISUALIZATION.md           How to build the operator screen
-  TESTING.md                 Manual test cases and results
-```
-
-### Architecture
-
-- **FB_CraneControl** holds all control logic: fault latching, command
-  validation, boom simulation, limits and grapple state.
-- **PLC_PRG** calls the FB once per cycle and maps its inputs/outputs to
-  `xHmi*` / `rHmi*` / `sHmi*` variables.
-- **VIS_Main** (visualization) only binds to those HMI variables. There
-  is no logic in the visualization.
-
-### Key design decisions
-
-- **Cycle time as an input.** The FB receives `tCycleTime` from
-  `PLC_PRG` instead of measuring time. This keeps the FB deterministic and
-  easy to test. The value must match the `MainTask` interval (default
-  `T#20MS`).
-- **Default to no movement.** Movement requires: no latched fault, no
-  conflicting command for that function, and all commands released since
-  the last fault or start-up.
-- **Latched faults.** A fault stays active after its cause disappears
-  until the operator presses Reset, so the operator always sees what
-  happened.
-- **Grapple holds on fault.** Opening the grapple on a fault could drop
-  a load, so the grapple keeps its last state.
-
 ## Installation
 
 1. Install CODESYS V3.5 (the free Development System includes
@@ -114,6 +72,59 @@ committing.
    [docs/VISUALIZATION.md](docs/VISUALIZATION.md), or write values in the
    `PLC_PRG` online view.
 4. Run the test cases in [docs/TESTING.md](docs/TESTING.md).
+
+## Project structure and design
+
+<details>
+<summary><b>Folder layout</b></summary>
+
+```
+assets/
+  logo.png                   Project logo
+codesys/
+  JalaLogicLite.project      Native CODESYS project (code and visualization)
+src/
+  DUTs/E_CraneFault.st       Fault code enumeration
+  DUTs/E_HmiStatus.st        Operator status enumeration (text list IDs)
+  POUs/FB_CraneControl.st    Crane control logic
+  POUs/PLC_PRG.st            Main program, HMI variable mapping
+docs/
+  CODESYS_IMPORT.md          How to create the CODESYS project
+  VISUALIZATION.md           How to build the operator screen
+  TESTING.md                 Manual test cases and results
+```
+
+</details>
+
+<details>
+<summary><b>Architecture</b></summary>
+
+- **FB_CraneControl** holds all control logic: fault latching, command
+  validation, boom simulation, limits and grapple state.
+- **PLC_PRG** calls the FB once per cycle and maps its inputs/outputs to
+  `xHmi*` / `rHmi*` / `sHmi*` variables.
+- **VIS_Main** (visualization) only binds to those HMI variables. There
+  is no logic in the visualization.
+
+</details>
+
+<details>
+<summary><b>Key design decisions</b></summary>
+
+- **Cycle time as an input.** The FB receives `tCycleTime` from
+  `PLC_PRG` instead of measuring time. This keeps the FB deterministic and
+  easy to test. The value must match the `MainTask` interval (default
+  `T#20MS`).
+- **Default to no movement.** Movement requires: no latched fault, no
+  conflicting command for that function, and all commands released since
+  the last fault or start-up.
+- **Latched faults.** A fault stays active after its cause disappears
+  until the operator presses Reset, so the operator always sees what
+  happened.
+- **Grapple holds on fault.** Opening the grapple on a fault could drop
+  a load, so the grapple keeps its last state.
+
+</details>
 
 ## Screenshots
 
@@ -142,7 +153,8 @@ It is not needed to build or run the simulator.
 > have been tried and work. Editing code through MCP has not been tried.
 > The toolkit is a third-party project, not affiliated with CODESYS.
 
-### What it can and cannot do
+<details>
+<summary><b>What it can and cannot do</b></summary>
 
 | Can                                                      | Cannot                                      |
 |----------------------------------------------------------|---------------------------------------------|
@@ -159,13 +171,18 @@ them there (**Build > Build**, `F11`).
 Code read through MCP comes back without indentation. Use the `.st` files
 in `src/` or the project in CODESYS as the reference, not the MCP output.
 
-### Requirements
+</details>
+
+<details>
+<summary><b>Requirements and setup</b></summary>
+
+**Requirements**
 
 - CODESYS V3.5 with the **Scripting Engine** component installed
 - Node.js 18 or later
 - An MCP client, for example Claude Code
 
-### Setup
+**Setup**
 
 1. Install the toolkit:
 
@@ -202,7 +219,10 @@ in `src/` or the project in CODESYS as the reference, not the MCP output.
 For other MCP clients, use the same command and arguments in the client's
 MCP configuration. See the toolkit README for details.
 
-### Try the project with the assistant
+</details>
+
+<details>
+<summary><b>Try the project with the assistant</b></summary>
 
 1. **Close the project in CODESYS** (**File > Close Project**) or close
    CODESYS. The toolkit starts its own CODESYS instance in the background,
@@ -225,13 +245,18 @@ reviewed and reverted with Git. Copy changed code into the matching `.st`
 file in `src/`, build in CODESYS and run the manual tests. A successful
 build does not mean the logic is correct.
 
-### Troubleshooting
+</details>
+
+<details>
+<summary><b>Troubleshooting</b></summary>
 
 | Problem | Solution |
 |---------|----------|
 | `The selected project is currently in use by '<user>' on '<computer>'` | The project is open in CODESYS. Close it there and ask again. |
-| `error: unknown option '--codesys-path'` when registering | See step 3 of [Setup](#setup): use `claude.cmd` and `'--'` in PowerShell. |
-| `codesys` is not listed or fails in `claude mcp list` | Check the CODESYS path and profile name from step 2 of [Setup](#setup). The **Scripting Engine** component must be installed. |
+| `error: unknown option '--codesys-path'` when registering | See step 3 of **Requirements and setup**: use `claude.cmd` and `'--'` in PowerShell. |
+| `codesys` is not listed or fails in `claude mcp list` | Check the CODESYS path and profile name from step 2 of **Requirements and setup**. The **Scripting Engine** component must be installed. |
+
+</details>
 
 The official
 [CODESYS Development System MCP Server](https://content.helpme-codesys.com/en/CODESYS%20Development%20System%20MCP%20Server/_idemcp_start_page.html)
