@@ -1,8 +1,8 @@
 
-# JalaCrane Lite - Claude Code Instructions
+# JalaLogic - Claude Code Instructions
 
 ## Project
-JalaCrane Lite is a small educational forestry crane
+JalaLogic is a small educational forestry crane
 control simulator built with CODESYS and Structured Text.
 
 The project demonstrates PLC programming skills for

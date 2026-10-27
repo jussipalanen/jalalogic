@@ -2,7 +2,7 @@
 # AGENTS.md
 
 ## Purpose
-Instructions for AI coding agents working on JalaCrane Lite.
+Instructions for AI coding agents working on JalaLogic.
 
 ## Development Principles
 - Read CLAUDE.md before making changes.
