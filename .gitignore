@@ -6,3 +6,6 @@
 *.precompilecache
 *.~u
 *.project.bak
+
+# Local ./dev settings
+.dev.env

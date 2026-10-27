@@ -1,2 +1,8 @@
 # CODESYS project files are binary archives
 *.project binary
+
+# Line endings for helper scripts
+dev text eol=lf
+*.py text eol=lf
+*.cmd text eol=crlf
+.dev.env* text eol=lf

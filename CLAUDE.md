@@ -64,6 +64,14 @@ certified safety functions.
   without actual verification.
 - Provide manual CODESYS test steps when needed.
 
+## Applying code to CODESYS
+- Edit code in src/*.st, then run `./dev sync` from Git Bash
+  (see docs/DEV_WORKFLOW.md).
+- Read the build output. On errors, fix src/ and run it again.
+- If the project is open in the CODESYS IDE, ask the user to close it.
+- New POUs/DUTs must be created in CODESYS first; sync only fills
+  existing objects.
+
 ## Workflow
 - Use feature/* branches for new features.
 - Use fix/* branches for bug fixes.

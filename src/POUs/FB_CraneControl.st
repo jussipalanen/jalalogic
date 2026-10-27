@@ -28,6 +28,7 @@ VAR_OUTPUT
     xBoomMovingDown         : BOOL := FALSE;
     xBoomAtUpperLimit       : BOOL := FALSE;
     xBoomAtLowerLimit       : BOOL := TRUE;
+    xBoomInSlowZone         : BOOL := FALSE; // Moving towards a limit at reduced speed
     xGrappleIsOpen          : BOOL := FALSE;
     xBoomCommandConflict    : BOOL := FALSE; // Up and down requested together
     xGrappleCommandConflict : BOOL := FALSE; // Open and close requested together
@@ -51,6 +52,8 @@ VAR CONSTANT
     c_rBoomMax      : REAL := 100.0;
     c_rMaxBoomSpeed : REAL := 100.0;
     c_tMaxCycleTime : TIME := T#1S;
+    c_rSlowZone     : REAL := 10.0;  // Last 10 % before a limit
+    c_rSlowFactor   : REAL := 0.3;   // 30 % of rBoomSpeed inside the slow zone
 END_VAR
 
 // ============================================================================
@@ -112,6 +115,14 @@ IF xMotionAllowed THEN
     rStep := rBoomSpeed * TIME_TO_REAL(tCycleTime) / 1000.0;
 ELSE
     rStep := 0.0;
+END_IF
+
+// Slow down near the limit the boom is moving towards, so it does not
+// reach the end position at full speed. Moving away is not slowed.
+xBoomInSlowZone := (xBoomMovingUp AND (rPosition >= c_rBoomMax - c_rSlowZone))
+                   OR (xBoomMovingDown AND (rPosition <= c_rBoomMin + c_rSlowZone));
+IF xBoomInSlowZone THEN
+    rStep := rStep * c_rSlowFactor;
 END_IF
 
 IF xBoomMovingUp THEN

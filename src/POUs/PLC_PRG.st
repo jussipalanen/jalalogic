@@ -41,7 +41,7 @@ VAR
 END_VAR
 VAR CONSTANT
     c_tTaskCycleTime      : TIME := T#20MS; // Must match the MainTask interval
-    c_rBoomSpeed          : REAL := 10.0;   // Percent per second (0 -> 100 % in 10 s)
+    c_rBoomSpeed          : REAL := 10.0;   // Percent per second, reduced to 30 % in the last 10 % before a limit
     c_rBoomMaxAngleDeg    : REAL := -60.0;  // Drawing angle at 100 %; flip sign if it rotates the wrong way
 END_VAR
 
