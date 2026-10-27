@@ -12,9 +12,9 @@ from the watch view in `PLC_PRG`.
 | Manual - pass | Run manually in CODESYS simulation and passed   |
 | Manual - fail | Run manually and failed (describe in notes)     |
 
-**Current state:** no test has been executed yet. The code has not been
-compiled in CODESYS. Update the table at the end of this file when tests
-are run.
+**Current state:** the code builds in CODESYS. T1 has been run manually
+in simulation; the other tests have not been executed yet. Update the
+table at the end of this file when tests are run.
 
 ## Setup
 
@@ -137,7 +137,7 @@ unless you find a reliable way to hold a command through the first cycle.
 
 | Test | Description                          | Status       | Date | Notes |
 |------|--------------------------------------|--------------|------|-------|
-| T1   | Boom moves up                        | Not executed |      |       |
+| T1   | Boom moves up                        | Manual - pass | 2026-10-27 | Online view, Write Values |
 | T2   | Boom moves down                      | Not executed |      |       |
 | T3   | Upper and lower limits               | Not executed |      |       |
 | T4   | Conflicting commands                 | Not executed |      |       |

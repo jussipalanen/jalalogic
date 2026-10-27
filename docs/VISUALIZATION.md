@@ -157,5 +157,7 @@ the sign of `c_rBoomMaxAngleDeg` in `PLC_PRG`.
 3. Run the manual test cases in [TESTING.md](TESTING.md).
 4. Take screenshots for the README (for example into `docs/images/`).
 
-> Visualization status: **not yet built or verified** in CODESYS. This guide
-> describes the intended setup.
+> Visualization status: `VIS_Main` has been built in
+> `codesys/JalaLogicLite.project` (command buttons, position bar, lamps,
+> status text). The full test run in [TESTING.md](TESTING.md) is pending.
+> The optional boom drawing (section 7) has not been built.

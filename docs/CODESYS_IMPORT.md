@@ -80,9 +80,8 @@ limits and fault handling still work.
 1. **Build > Build** (`F11`).
 2. Check the **Messages** window for errors and warnings.
 
-> Compilation status of this code: **not yet verified**. It was written
-> to follow CODESYS V3 Structured Text syntax, but has not been compiled.
-> Report any compiler messages so the `.st` files can be fixed.
+> Compilation status: the code builds in CODESYS (manual build,
+> 2026-10-27). Report any compiler messages so the `.st` files can be fixed.
 
 ## 7. Run in simulation
 
