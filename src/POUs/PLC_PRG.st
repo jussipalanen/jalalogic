@@ -1,4 +1,4 @@
-// JalaLogic - PLC_PRG
+// JalaLogic Lite - PLC_PRG
 // Simulation-only educational project. Not a certified safety function.
 //
 // Main program. Connects the HMI variables to FB_CraneControl.
