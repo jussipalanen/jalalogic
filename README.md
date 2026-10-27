@@ -31,7 +31,8 @@ Version **0.1.0 (in development)**.
   source is gone
 - Reset never restarts movement: all commands must be released first
 - Configuration validation (cycle time, boom speed); invalid values fault
-- Operator status text for the HMI
+- Operator status for the HMI, with texts in a CODESYS text list
+  (no language-specific text in the PLC code)
 
 Out of scope for v0.1.0: CAN bus, real hydraulic control, 3D graphics,
 databases and external APIs.
@@ -51,6 +52,7 @@ Only the CODESYS `Standard` library is used (`R_TRIG`).
 ```
 src/
   DUTs/E_CraneFault.st       Fault code enumeration
+  DUTs/E_HmiStatus.st        Operator status enumeration (text list IDs)
   POUs/FB_CraneControl.st    Crane control logic
   POUs/PLC_PRG.st            Main program, HMI variable mapping
 docs/

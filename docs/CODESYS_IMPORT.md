@@ -32,6 +32,15 @@ with `MainTask`, and a `Library Manager` that includes the `Standard` library
 3. Select all text in the DUT editor and replace it with the contents of
    `src/DUTs/E_CraneFault.st` (comments at the top are optional).
 
+## 2b. Add the enumeration E_HmiStatus
+
+Repeat step 2 with the name `E_HmiStatus` and the contents of
+`src/DUTs/E_HmiStatus.st`.
+
+The operator status texts are not in the code. They are stored in the
+text list `TL_Status`, which is created together with the visualization
+(see [VISUALIZATION.md](VISUALIZATION.md), section 6).
+
 ## 3. Add the function block FB_CraneControl
 
 1. Right-click **Application > Add Object > POU...**
