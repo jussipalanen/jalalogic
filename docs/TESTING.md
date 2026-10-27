@@ -33,8 +33,9 @@ table at the end of this file when tests are run.
 
 Expand `fbCrane` in the online view to see all FB outputs.
 
-Expected boom speed with default settings: 10 % per second
-(0 % to 100 % in about 10 s), assuming `c_tTaskCycleTime` matches the
+Expected boom speed with default settings: 10 % per second, reduced to
+3 % per second in the last 10 % before the limit the boom moves towards
+(0 % to 100 % in about 12.3 s), assuming `c_tTaskCycleTime` matches the
 MainTask interval.
 
 ## Test cases
@@ -133,6 +134,18 @@ unless you find a reliable way to hold a command through the first cycle.
 2. Expected: fault code `INVALID_CONFIGURATION`, no movement.
 3. Restore `10.0`, download, pulse `xHmiReset`. Fault clears.
 
+### T11 - Boom slows down near the limits
+
+1. Start with the boom at about 50 %. Hold `xHmiBoomUp`.
+2. Expected: below 90 % the position rises about 10 %/s and
+   `fbCrane.xBoomInSlowZone` is FALSE. From 90 % `xBoomInSlowZone` is TRUE
+   and the position rises about 3 %/s (90 % to 100 % in about 3.3 s).
+3. Expected at 100 %: movement stops as in T3, `xBoomInSlowZone` FALSE.
+4. Hold `xHmiBoomDown` from 100 %.
+5. Expected: the boom moves away at full speed (10 %/s),
+   `xBoomInSlowZone` FALSE, until it is below 10 %. Then it slows to
+   about 3 %/s and stops at exactly 0.0 %.
+
 ## Results
 
 | Test | Description                          | Status       | Date | Notes |
@@ -147,3 +160,4 @@ unless you find a reliable way to hold a command through the first cycle.
 | T8   | Reset ignored while fault active     | Not executed |      |       |
 | T9   | Held command at start-up             | Not executed |      | Code review only |
 | T10  | Invalid configuration                | Not executed |      |       |
+| T11  | Slow-down near limits                | Not executed |      |       |

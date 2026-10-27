@@ -42,6 +42,11 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
   open in the IDE. Tested with CODESYS V3.5 SP22 Patch 3.
 - `docs/DEV_WORKFLOW.md`: everyday workflow for changes with Claude Code
   and `./dev`.
+- Boom slow-down: in the last 10 % before the limit the boom moves
+  towards, it moves at 30 % of the set speed (`c_rSlowZone`,
+  `c_rSlowFactor` in `FB_CraneControl`). New output `xBoomInSlowZone`.
+  Builds; test T11 not executed yet.
+- Application version `v0.1.0` in the bottom-right corner of `VIS_Main`.
 - Visualization guide: build sheet with exact positions, sizes and colors
   for the operator screen layout (1024 x 600), and WebVisu setup for
   viewing `VIS_Main` in a browser via CODESYS Control Win V3. Not yet
