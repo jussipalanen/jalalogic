@@ -171,10 +171,21 @@ It is not needed to build or run the simulator.
 
 3. Register the server in Claude Code from the repository folder. The
    default local scope keeps your machine-specific paths out of Git.
+   On Windows, `cmd /c` is needed to start the npm command shim.
+
+   PowerShell:
 
    ```
-   claude mcp add codesys -- codesys-mcp-tool --codesys-path "C:/Path/To/CODESYS/Common/CODESYS.exe" --codesys-profile "CODESYS V3.5 SP22 Patch 3" --workspace "C:/Path/To/jalalogic"
+   claude.cmd mcp add codesys '--' cmd /c codesys-mcp-tool --codesys-path "C:/Path/To/CODESYS/Common/CODESYS.exe" --codesys-profile "CODESYS V3.5 SP22 Patch 3" --workspace "C:/Path/To/jalalogic"
    ```
+
+   Command Prompt (`cmd.exe`): the same command with `--` instead of
+   `'--'`.
+
+   In PowerShell, plain `claude` runs the `claude.ps1` script shim and
+   PowerShell removes an unquoted `--`, which causes
+   `error: unknown option '--codesys-path'`. Use `claude.cmd` and the
+   quoted `'--'` as shown.
 
 4. Restart Claude Code and check the connection with `claude mcp list`.
 
