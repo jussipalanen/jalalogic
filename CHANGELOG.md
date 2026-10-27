@@ -49,5 +49,5 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
 - Application version `v0.1.0` in the bottom-right corner of `VIS_Main`.
 - Visualization guide: build sheet with exact positions, sizes and colors
   for the operator screen layout (1024 x 600), and WebVisu setup for
-  viewing `VIS_Main` in a browser via CODESYS Control Win V3. Not yet
-  built in the project.
+  viewing `VIS_Main` in a browser via CODESYS Control Win V3. WebVisu
+  tested in Chrome.

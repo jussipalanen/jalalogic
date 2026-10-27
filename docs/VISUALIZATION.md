@@ -285,9 +285,9 @@ the sign of `c_rBoomMaxAngleDeg` in `PLC_PRG`.
 > `VIS_Main` XML and importing it back: positions, a vertical position bar,
 > all lamps and labels, on a 1024 x 600 screen in the existing dark theme.
 > The background rectangles, the E-STOP color and the toggle colors are not
-> built yet, and the layout has not been checked visually. A `WebVisu`
-> object already exists; section 9 has not been tested. The optional boom
-> drawing (section 7) has not been built.
+> built yet. The layout was checked in the IDE and in WebVisu
+> (2026-10-28). WebVisu (section 9) works in Chrome with CODESYS Control
+> Win V3 x64. The optional boom drawing (section 7) has not been built.
 
 ## 9. WebVisu (browser)
 
@@ -300,6 +300,10 @@ server. It needs the soft PLC **CODESYS Control Win V3**, which is
 installed together with CODESYS.
 
 ### 9a. Add the WebVisu object
+
+`codesys/JalaLogicLite.project` already contains a `WebVisu` object with
+start visualization `VIS_Main` and file name `webvisu.htm`; skip to 9b.
+For a new project:
 
 1. Right-click **Visualization Manager > Add Object > WebVisu...**, click
    **Add**.
