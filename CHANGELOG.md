@@ -7,7 +7,11 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
-Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
+## [0.1.0] - 2026-10-28
+
+Pre-release. Builds in CODESYS V3.5 SP22 Patch 3 with 0 errors and
+0 warnings. Manual tests T1 and T11 passed in simulation; T2-T10 are not
+executed yet.
 
 ### Added
 
@@ -51,3 +55,6 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
   for the operator screen layout (1024 x 600), and WebVisu setup for
   viewing `VIS_Main` in a browser via CODESYS Control Win V3. WebVisu
   tested in Chrome.
+
+[Unreleased]: https://github.com/jussipalanen/jalalogic/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/jussipalanen/jalalogic/releases/tag/v0.1.0
