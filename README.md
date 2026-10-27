@@ -64,6 +64,11 @@ not synchronize them automatically; `codesys/JalaLogicLite.project` is the
 authoritative source. Copy code changes back into the `.st` files before
 committing.
 
+Optional: the `./dev` script (Git Bash) copies `src/*.st` into the
+project and builds it headless with `./dev sync`. See
+[docs/DEV_WORKFLOW.md](docs/DEV_WORKFLOW.md). `./dev build` and
+`./dev sync` have not been tested against the project yet.
+
 ## Simulation
 
 1. In CODESYS: **Online > Simulation**.
@@ -88,8 +93,14 @@ src/
   DUTs/E_HmiStatus.st        Operator status enumeration (text list IDs)
   POUs/FB_CraneControl.st    Crane control logic
   POUs/PLC_PRG.st            Main program, HMI variable mapping
+scripts/
+  codesys_dev.py             CODESYS script run by ./dev (sync, build)
+  run_codesys.cmd            Starts CODESYS headless for ./dev
+dev                          Developer commands (./dev help)
+.dev.env.example             Template for local ./dev settings
 docs/
   CODESYS_IMPORT.md          How to create the CODESYS project
+  DEV_WORKFLOW.md            Making changes with Claude Code and ./dev
   VISUALIZATION.md           How to build the operator screen
   TESTING.md                 Manual test cases and results
 ```

@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# JalaLogic Lite - developer commands. Run from Git Bash on Windows.
+# Simulation-only educational project. Not a certified safety function.
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_FILE="JalaLogicLite.project"
+
+usage() {
+    cat <<'EOF'
+Usage: ./dev <command>
+
+  build   Build the CODESYS application. The project is not changed.
+  sync    Copy src/*.st into codesys/JalaLogicLite.project, build,
+          and save the project only if the build has no errors.
+  help    Show this help.
+
+Requires CODESYS V3.5 with the Scripting Engine. Set CODESYS_EXE and
+CODESYS_PROFILE in .dev.env (copy .dev.env.example). Close the project
+in the CODESYS IDE before running build or sync.
+EOF
+}
+
+load_config() {
+    if [[ -f "$ROOT/.dev.env" ]]; then
+        # shellcheck source=/dev/null
+        source "$ROOT/.dev.env"
+    fi
+    : "${CODESYS_EXE:?not set. Copy .dev.env.example to .dev.env and edit it}"
+    : "${CODESYS_PROFILE:?not set. Copy .dev.env.example to .dev.env and edit it}"
+    if [[ ! -f "$CODESYS_EXE" ]]; then
+        echo "CODESYS not found: $CODESYS_EXE" >&2
+        exit 1
+    fi
+    CODESYS_EXE="$(cygpath -w "$CODESYS_EXE")"
+    export CODESYS_EXE CODESYS_PROFILE
+}
+
+# The IDE shows the project file name in its window title. Headless
+# CODESYS instances have no window title.
+project_open_in_ide() {
+    tasklist //v //fo csv //nh //fi "imagename eq CODESYS.exe" 2>/dev/null | grep -q "$PROJECT_FILE"
+}
+
+# Runs scripts/codesys_dev.py inside CODESYS. Succeeds only if the script
+# reports "DEV_RESULT: OK".
+run_codesys() {
+    local log
+    log="$(mktemp)"
+    DEV_MODE="$1" DEV_ROOT="$(cygpath -w "$ROOT")" \
+        cmd //c "$(cygpath -w "$ROOT/scripts/run_codesys.cmd")" "$(cygpath -w "$ROOT/scripts/codesys_dev.py")" 2>&1 \
+        | tr -d '\r' | grep -v '^[[:space:]]*$' | tee "$log"
+    local result=0
+    grep -q '^DEV_RESULT: OK$' "$log" || result=1
+    rm -f "$log"
+    return "$result"
+}
+
+case "${1:-help}" in
+    build | sync)
+        load_config
+        if project_open_in_ide; then
+            echo "$PROJECT_FILE is open in the CODESYS IDE." >&2
+            echo "Close it there first (File > Close Project), then run ./dev $1 again." >&2
+            exit 1
+        fi
+        echo "Starting CODESYS ($CODESYS_PROFILE) without UI..."
+        if ! run_codesys "$1"; then
+            echo "./dev $1 failed." >&2
+            exit 1
+        fi
+        ;;
+    help | -h | --help)
+        usage
+        ;;
+    *)
+        echo "Unknown command: $1" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

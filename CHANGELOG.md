@@ -36,3 +36,9 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
   colors for E-stop and simulated fault (not yet built in `VIS_Main`).
 - Documentation: README, CODESYS import guide, visualization guide and
   manual test instructions.
+- `./dev` developer script (Git Bash): `./dev sync` copies `src/*.st`
+  into the CODESYS project, builds headless and saves only on a clean
+  build; `./dev build` only builds. Refuses to run while the project is
+  open in the IDE. Build and sync against the project are not tested yet.
+- `docs/DEV_WORKFLOW.md`: everyday workflow for changes with Claude Code
+  and `./dev`.
