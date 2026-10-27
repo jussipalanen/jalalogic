@@ -160,4 +160,4 @@ unless you find a reliable way to hold a command through the first cycle.
 | T8   | Reset ignored while fault active     | Not executed |      |       |
 | T9   | Held command at start-up             | Not executed |      | Code review only |
 | T10  | Invalid configuration                | Not executed |      |       |
-| T11  | Slow-down near limits                | Not executed |      |       |
+| T11  | Slow-down near limits                | Manual - pass | 2026-10-28 | VIS_Main in simulation |

@@ -45,7 +45,7 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
 - Boom slow-down: in the last 10 % before the limit the boom moves
   towards, it moves at 30 % of the set speed (`c_rSlowZone`,
   `c_rSlowFactor` in `FB_CraneControl`). New output `xBoomInSlowZone`.
-  Builds; test T11 not executed yet.
+  Test T11 passed in simulation.
 - Application version `v0.1.0` in the bottom-right corner of `VIS_Main`.
 - Visualization guide: build sheet with exact positions, sizes and colors
   for the operator screen layout (1024 x 600), and WebVisu setup for
