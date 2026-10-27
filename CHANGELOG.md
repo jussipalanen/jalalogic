@@ -28,5 +28,11 @@ Planned as **0.1.0**. Builds in CODESYS; manual test run in progress.
 - Native CODESYS project `codesys/JalaLogicLite.project` with the
   `VIS_Main` operator screen and `TL_Status` text list.
 - Project logo in `assets/logo.png`.
+- README instructions for the optional community CODESYS MCP server
+  (`@codesys/mcp-toolkit`) for AI-assisted development, with tested
+  behaviour, example prompts and troubleshooting.
+- Operator screen layout in the visualization guide: status bar and
+  BOOM, GRAPPLE and SAFETY AND FAULTS panels, help footer and toggle
+  colors for E-stop and simulated fault (not yet built in `VIS_Main`).
 - Documentation: README, CODESYS import guide, visualization guide and
   manual test instructions.
