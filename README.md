@@ -15,7 +15,7 @@ Suomeksi: [docs/OHJE.md](docs/OHJE.md).
 
 ## Status
 
-Version **0.1.0** (pre-release, 2026-10-28).
+Version **0.1.1** (pre-release, 2026-10-29).
 
 | Item                        | Status                                  |
 |-----------------------------|-----------------------------------------|
