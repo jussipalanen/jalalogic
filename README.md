@@ -6,6 +6,8 @@ A small educational forestry crane control simulator written in
 IEC 61131-3 Structured Text for CODESYS V3. Built as a PLC programming
 portfolio project.
 
+Suomeksi: [docs/OHJE.md](docs/OHJE.md).
+
 > **Simulation only.** This project is not connected to and must not be
 > connected to physical machinery. The simulated emergency stop and limits
 > are **not** certified safety functions, and the project makes no claim of
@@ -105,9 +107,12 @@ scripts/
   run_codesys.cmd            Starts CODESYS headless for ./dev
 dev                          Developer commands (./dev help)
 .dev.env.example             Template for local ./dev settings
+SECURITY.md                  How to report a vulnerability
+.github/CODEOWNERS           Owner review for all changes
 docs/
   CODESYS_IMPORT.md          How to create the CODESYS project
   DEV_WORKFLOW.md            Making changes with Claude Code and ./dev
+  OHJE.md                    Short user guide in Finnish
   VISUALIZATION.md           How to build the operator screen
   TESTING.md                 Manual test cases and results
 ```
