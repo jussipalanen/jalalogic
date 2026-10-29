@@ -7,6 +7,12 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+### Added
+
+- Finnish user guide `docs/OHJE.md`, linked from the README.
+- `.github/CODEOWNERS` so every change needs review from the project owner.
+- `SECURITY.md` with private vulnerability reporting instructions.
+
 ## [0.1.0] - 2026-10-28
 
 Pre-release. Builds in CODESYS V3.5 SP22 Patch 3 with 0 errors and
