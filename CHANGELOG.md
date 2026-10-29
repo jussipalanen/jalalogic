@@ -7,6 +7,12 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-29
+
+Documentation-only pre-release. The PLC code and the CODESYS project are
+unchanged from 0.1.0, so the version label in `VIS_Main` still reads
+v0.1.0.
+
 ### Added
 
 - Finnish user guide `docs/OHJE.md`, linked from the README.
@@ -62,5 +68,6 @@ executed yet.
   viewing `VIS_Main` in a browser via CODESYS Control Win V3. WebVisu
   tested in Chrome.
 
-[Unreleased]: https://github.com/jussipalanen/jalalogic/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/jussipalanen/jalalogic/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/jussipalanen/jalalogic/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/jussipalanen/jalalogic/releases/tag/v0.1.0
